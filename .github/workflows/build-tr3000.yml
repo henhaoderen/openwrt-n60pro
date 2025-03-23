@@ -39,27 +39,26 @@ jobs:
           FORCE_UNSAFE_CONFIGURE: 1
         run: |
           cd openwrt
-          true || make download
+          make download
 
       - name: make
         env:
           FORCE_UNSAFE_CONFIGURE: 1
         run: |
           cd openwrt
-          true || make -j8 FORCE_UNSAFE_CONFIGURE=1
-        
+          make -j8
 
       - name: zip the bin
         uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r bin.zip openwrt/config
+          args: zip -qq -r openwrt-tr3000.zip openwrt/bin
 
       - name: Release and Upload
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: bin.zip
+          files: openwrt-tr3000.zip
           
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@main
