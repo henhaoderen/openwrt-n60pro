@@ -33,13 +33,12 @@ jobs:
           FORCE_UNSAFE_CONFIGURE: 1
         run: |
           cd openwrt
-          make defconfig
           make download
 
       - name: make
         env:
           FORCE_UNSAFE_CONFIGURE: 1
-        run: cd openwrt && make -j8
+        run: cd openwrt && make -j8 FORCE_UNSAFE_CONFIGURE=1
 
       - name: zip the bin
         uses: montudor/action-zip@v1
