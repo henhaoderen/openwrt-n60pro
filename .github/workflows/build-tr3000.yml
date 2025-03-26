@@ -24,6 +24,7 @@ jobs:
           git branch -a
           git tag
           git checkout v24.10.0
+          echo "src-git helloworld https://github.com/fw876/helloworld.git" >> "feeds.conf.default"
 
       - name: Update the feeds
         run: |
@@ -39,6 +40,7 @@ jobs:
           FORCE_UNSAFE_CONFIGURE: 1
         run: |
           cd openwrt
+          make defconfig
           make download
 
       - name: make
