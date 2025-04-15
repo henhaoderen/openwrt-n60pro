@@ -53,7 +53,7 @@ jobs:
           
       - name: Rename the default bin
         run: |
-          cd openwrt/bin/targets/mediatex/filogic/
+          cd openwrt/bin/targets/mediatek/filogic/
           mv openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade.bin openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade-default.bin
 
       - name: apply and apply patch
@@ -66,7 +66,7 @@ jobs:
 
       - name: Rename the 112M bin
         run: |
-          cd openwrt/bin/targets/mediatex/filogic/
+          cd openwrt/bin/targets/mediatek/filogic/
           mv openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade.bin openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade-112M.bin
         
       - name: zip the bin
