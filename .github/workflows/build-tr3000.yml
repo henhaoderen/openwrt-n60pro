@@ -56,7 +56,7 @@ jobs:
           cd openwrt/bin/targets/mediatex/filogic/
           mv openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade.bin openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade-default.bin
 
-      - apply and apply patch
+      - name: apply and apply patch
         env:
           FORCE_UNSAFE_CONFIGURE: 1
         run: |
@@ -66,8 +66,8 @@ jobs:
 
       - name: Rename the 112M bin
         run: |
-        cd openwrt/bin/targets/mediatex/filogic/
-        mv openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade.bin openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade-112M.bin
+          cd openwrt/bin/targets/mediatex/filogic/
+          mv openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade.bin openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade-112M.bin
         
       - name: zip the bin
         uses: montudor/action-zip@v1
