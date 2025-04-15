@@ -50,18 +50,19 @@ jobs:
         run: |
           cd openwrt
           make -j8
-
           
       - name: Rename the default bin
         run: |
-        cd openwrt/bin/targets/mediatex/filogic/
-        mv openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade.bin openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade-default.bin
+          cd openwrt/bin/targets/mediatex/filogic/
+          mv openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade.bin openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade-default.bin
 
       - apply and apply patch
+        env:
+          FORCE_UNSAFE_CONFIGURE: 1
         run: |
-        cd openwrt
-        git apply ../patches/112m.patch
-        make -j8
+          cd openwrt
+          git apply ../patches/112m.patch
+          make -j8
 
       - name: Rename the 112M bin
         run: |
