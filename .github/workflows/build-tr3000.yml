@@ -51,6 +51,23 @@ jobs:
           cd openwrt
           make -j8
 
+          
+      - name: Rename the default bin
+        run: |
+        cd openwrt/bin/targets/mediatex/filogic/
+        mv openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade.bin openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade-default.bin
+
+      - apply and apply patch
+        run: |
+        cd openwrt
+        git apply ../patches/112m.patch
+        make -j8
+
+      - name: Rename the 112M bin
+        run: |
+        cd openwrt/bin/targets/mediatex/filogic/
+        mv openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade.bin openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade-112M.bin
+        
       - name: zip the bin
         uses: montudor/action-zip@v1
         with:
