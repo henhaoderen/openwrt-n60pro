@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: build openwrt for tr3000
+    name: build openwrt for n60pro
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -19,13 +19,13 @@ jobs:
         
       - name: Clone openwrt source code
         run: |
-          git clone https://git.openwrt.org/openwrt/openwrt.git
+          git clone git clone -b 2410 --single-branch --filter=blob:none https://bgithub.xyz/padavanonly/immortalwrt-mt798x-24.10 openwrt
           cd openwrt
           git branch -a
           git tag
           git checkout v24.10.0
-          echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
-          echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
+          echo "src-git passwall_packages https://bgithub.xyz/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
+          echo "src-git passwall https://bgithub.xyz/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
 
       - name: Update the feeds
         run: |
@@ -54,32 +54,26 @@ jobs:
       - name: Rename the default bin
         run: |
           cd openwrt/bin/targets/mediatek/filogic/
-          mv openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade.bin openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade-default.bin
+          mv openwrt-mediatek-filogic-n60pro-squashfs-sysupgrade.bin openwrt-mediatek-filogic-n60pro-squashfs-sysupgrade-default.bin
 
       - name: apply and apply patch
         env:
           FORCE_UNSAFE_CONFIGURE: 1
         run: |
           cd openwrt
-          git apply ../patches/112m.patch
           make -j8
-
-      - name: Rename the 112M bin
-        run: |
-          cd openwrt/bin/targets/mediatek/filogic/
-          mv openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade.bin openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade-112M.bin
-        
+       
       - name: zip the bin
         uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r openwrt-tr3000.zip openwrt/bin
+          args: zip -qq -r openwrt-n60pro.zip openwrt/bin
 
       - name: Release and Upload
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: openwrt-tr3000.zip
+          files: openwrt-n60pro.zip
           
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@main
